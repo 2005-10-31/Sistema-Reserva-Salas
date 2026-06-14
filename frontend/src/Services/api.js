@@ -1,6 +1,5 @@
-const API_URL = 'http://localhost:3000;' 
+const API_URL = 'http://localhost:3000/api';
 
-// Função auxiliar para enviar o Token de Autenticação nas rotas protegidas
 const getHeaders = () => {
   const token = localStorage.getItem('token');
   return {
@@ -10,15 +9,26 @@ const getHeaders = () => {
 };
 
 export const authService = {
-  login: async (usuario, senha) => {
+  login: async (email, password) => {
     const response = await fetch(`${API_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ usuario, senha }), // Ajuste as chaves conforme o seu middleware valida
+      body: JSON.stringify({ email, password }),
     });
-    if (!response.ok) throw new Error('Usuário ou senha inválidos');
-    return response.json(); // Espera-se retornar { token: '...' }
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.mensagem || 'Erro ao fazer login');
+    return data;
   },
+  registar: async (nome, email, password, role = 'user') => {
+    const response = await fetch(`${API_URL}/auth/registar`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome, email, password, role }),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.mensagem || 'Erro ao registar');
+    return data;
+  }
 };
 
 export const salasService = {
@@ -29,5 +39,26 @@ export const salasService = {
     });
     if (!response.ok) throw new Error('Erro ao buscar salas');
     return response.json();
+  }
+};
+
+export const reservasService = {
+  listarTodas: async () => {
+    const response = await fetch(`${API_URL}/reservas`, {
+      method: 'GET',
+      headers: getHeaders(),
+    });
+    if (!response.ok) throw new Error('Erro ao buscar reservas');
+    return response.json();
   },
+  criar: async (reservaDados) => {
+    const response = await fetch(`${API_URL}/reservas`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(reservaDados),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.mensagem || 'Erro ao criar reserva');
+    return data;
+  }
 };
