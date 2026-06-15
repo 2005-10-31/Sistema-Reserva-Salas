@@ -48,8 +48,8 @@ const atualizar = async (req, res, next) => {
   try {
     const { nome, email, password, role } = req.body;
 
-    // Apenas admin pode mudar o role de outro utilizador
-    if (role && req.usuario.role !== 'admin' && req.usuario.id !== Number(req.params.id)) {
+    // Apenas admin pode alterar o role
+    if (role && req.usuario.role !== 'admin') {
       return res.status(403).json({ mensagem: 'Sem permissão para alterar o role.' });
     }
 

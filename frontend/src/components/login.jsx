@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { authService } from '../services/api';
+import { authService } from '../Services/api';
 
 export default function Login({ onLoginSuccess }) {
   const [isRegisto, setIsRegisto] = useState(false);

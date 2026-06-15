@@ -31,12 +31,14 @@ CREATE TABLE reservas (
     CONSTRAINT check_datas CHECK (data_fim > data_inicio)
 );
 
+-- NOTA: As passwords abaixo são hashes bcrypt de "senha123"
+-- Gerado com: bcrypt.hash('senha123', 10)
 INSERT INTO usuarios (nome, email, password, role) VALUES
-    ('Admin Sistema',    'admin@empresa.cv',    'senha123', 'admin'),
-    ('Kelly Fortes',     'kelly@empresa.cv',    'senha123', 'user'),
-    ('Jarni Timas',      'jarni@empresa.cv',    'senha123', 'user'),
-    ('Leonardo Dionisio','leonardo@empresa.cv', 'senha123', 'user'),
-    ('William Pires',    'william@empresa.cv',  'senha123', 'user');
+    ('Admin Sistema',    'admin@empresa.cv',    '$2a$10$O7XgnQXMqE.1Zbt8qvV9CeahoDuueZExIiFAOOabDqvx0wuu8DRA2', 'admin'),
+    ('Kelly Fortes',     'kelly@empresa.cv',    '$2a$10$O7XgnQXMqE.1Zbt8qvV9CeahoDuueZExIiFAOOabDqvx0wuu8DRA2', 'user'),
+    ('Jarni Timas',      'jarni@empresa.cv',    '$2a$10$O7XgnQXMqE.1Zbt8qvV9CeahoDuueZExIiFAOOabDqvx0wuu8DRA2', 'user'),
+    ('Leonardo Dionisio','leonardo@empresa.cv', '$2a$10$O7XgnQXMqE.1Zbt8qvV9CeahoDuueZExIiFAOOabDqvx0wuu8DRA2', 'user'),
+    ('William Pires',    'william@empresa.cv',  '$2a$10$O7XgnQXMqE.1Zbt8qvV9CeahoDuueZExIiFAOOabDqvx0wuu8DRA2', 'user');
 
 
 INSERT INTO salas (nome, capacidade, localizacao, descricao) VALUES

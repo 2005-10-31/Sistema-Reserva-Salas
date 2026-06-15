@@ -33,8 +33,8 @@ export default function Dashboard({onLogout}){
         try{
             await reservasService.criar({
                 id_sala: Number(idSala),
-                data_inicio: dataInicio.replace('T', '') + ':00',
-                data_fim: dataFim.replace('T', '') + ':00',
+                data_inicio: dataInicio.replace('T', ' ') + ':00',
+                data_fim: dataFim.replace('T', ' ') + ':00',
                 descricao
             });
             alert('Reserva efetuada com sucesso!!');
